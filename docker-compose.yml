@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+
+  vault:
+    image: vault:latest
+    container_name: vault
+    volumes:
+      - ./volumes/config:/vault/config
+      - ./volumes/file:/vault/file
+      - ./volumes/logs:/vault/logs
+    ports:
+      - "8200:8200"
+    environment:
+      - VAULT_LOG_LEVEL=
+    cap_add:
+      - IPC_LOCK
+    restart: always
+    command: vault server -config=/vault/config/vault-server.hcl
